@@ -1245,5 +1245,30 @@
     "source": "7th Japanese × AC 偏好版",
     "tags": ["gin", "matcha", "oolong", "white peach", "tea", "highball", "japanese", "signature", "ac original"],
     "pairing": "和菓子、抹茶甜點、輕食"
+  },
+  {
+    "id": 505,
+    "category": "cocktail",
+    "type": "signature",
+    "name": "Cold Brew Coffee & Grape Fizz",
+    "nameZh": "冷萃咖啡葡萄費茲",
+    "base": "Sherry Cask Whisky 或 Brandy（咖啡冷萃浸漬）",
+    "acid": 2,
+    "sweet": 3,
+    "abv": 2,
+    "ingredients": [
+      { "amount": "45ml", "name": "咖啡浸漬威士忌／白蘭地（雪莉桶威士忌或白蘭地 + 中焙咖啡豆，10比1，冷泡 2h 後濾紙過濾）" },
+      { "amount": "90ml", "name": "葡萄汁（超商即可）" },
+      { "amount": "15ml", "name": "新鮮檸檬汁" },
+      { "amount": "5ml", "name": "糖漿" },
+      { "amount": "補滿", "name": "氣泡水" }
+    ],
+    "technique": "冷萃浸漬 2h / Dry Shake / Build（入杯後簡單提拉）",
+    "glass": "高球杯 + 方冰",
+    "garnish": "無（可加咖啡豆或葡萄點綴）",
+    "story": "Fizz 是 19 世紀美國酒吧的經典類別——烈酒、柑橘、糖加氣泡水，以清爽泡沫感著稱，Gin Fizz 曾風靡到紐奧良的酒吧要雇一整排搖酒員輪班應付。此版本把骨架換上咖啡與葡萄：雪莉桶威士忌本就帶葡萄乾與果脯調性，與中焙咖啡豆冷泡兩小時後，咖啡的可可堅果感疊上雪莉甜潤，再用葡萄汁把這條「葡萄—雪莉桶」的風味線拉直，檸檬與氣泡水收尾成明亮的長飲。咖啡與果汁氣泡的組合是近年精品咖啡圈的人氣公式（咖啡通寧的延伸），移植到 Fizz 格式毫無違和。",
+    "source": "卡司故事 咖啡調酒影片",
+    "tags": ["coffee", "whisky", "brandy", "fizz", "grape", "highball", "infusion", "cold brew", "sherry cask", "ac original"],
+    "pairing": "早午餐、可頌、莓果塔、黑巧克力"
   }
 ]

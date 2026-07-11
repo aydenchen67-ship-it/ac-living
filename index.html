@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AC Living 酒吧知識庫</title>
+<style>
+  :root {
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --muted:          #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --card-bg:        #ffffff;
+
+    --series-1: #2a78d6; /* cocktail - blue */
+    --series-2: #1baf7a; /* gin - aqua */
+    --series-3: #eda100; /* whisky - yellow */
+    --series-4: #008300; /* sake - green */
+    --series-5: #4a3aa7; /* other - violet */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted:          #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --card-bg:        #232322;
+
+      --series-1: #3987e5;
+      --series-2: #199e70;
+      --series-3: #c98500;
+      --series-4: #008300;
+      --series-5: #9085e9;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  main {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+  header.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  header.top h1 {
+    font-size: 22px;
+    margin: 0;
+  }
+  header.top .stats {
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  /* filter bar */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+  .filters input, .filters select {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 13px;
+  }
+  .filters input[type="search"] { flex: 1 1 220px; min-width: 160px; }
+  .filters button {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .filters button:hover { color: var(--text-primary); border-color: var(--baseline); }
+
+  /* charts */
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 760px) { .charts { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .chart-card h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0 0 10px;
+  }
+  .chart-card.wide { grid-column: 1 / -1; }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+  }
+  .legend span.dot {
+    display: inline-block;
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+  .bar-row .label { width: 78px; font-size: 12px; color: var(--text-secondary); flex-shrink: 0; text-align: right; }
+  .bar-row .track { flex: 1; background: var(--gridline); border-radius: 4px; height: 14px; position: relative; overflow: hidden; }
+  .bar-row .fill { height: 100%; border-radius: 4px; }
+  .bar-row .value { width: 28px; font-size: 12px; color: var(--text-secondary); }
+
+  svg text { fill: var(--text-secondary); font-size: 10px; }
+  .axis-line { stroke: var(--baseline); stroke-width: 1; }
+  .grid-line { stroke: var(--gridline); stroke-width: 1; }
+  .dot-point { cursor: pointer; }
+
+  #tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 9px;
+    font-size: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    display: none;
+    z-index: 50;
+    max-width: 220px;
+  }
+
+  /* results */
+  .results-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .card .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 8px;
+  }
+  .card h3 { margin: 0; font-size: 15px; }
+  .card .zh { color: var(--text-secondary); font-size: 12px; margin-top: 1px; }
+  .badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .card .base { font-size: 12px; color: var(--text-secondary); margin: 6px 0 8px; }
+  .profile { display: flex; gap: 12px; margin-bottom: 10px; }
+  .profile .p { font-size: 10px; color: var(--muted); }
+  .profile .p b { display: block; font-size: 12px; color: var(--text-primary); font-weight: 600; }
+  .card ul.ingredients { margin: 0 0 8px; padding-left: 16px; font-size: 12px; color: var(--text-secondary); }
+  .card .meta-row { font-size: 12px; color: var(--text-secondary); margin: 2px 0; }
+  .card .story {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin: 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card.expanded .story { -webkit-line-clamp: unset; }
+  .card .toggle {
+    background: none; border: none; color: var(--series-1);
+    font-size: 12px; cursor: pointer; padding: 0; margin-bottom: 8px;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .tag {
+    font-size: 10.5px;
+    color: var(--text-secondary);
+    background: var(--gridline);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+  .pairing { font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+  .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<h1 class="sr-only">AC Living 酒吧知識庫：可搜尋與分析的調酒、琴酒與烈酒資料庫</h1>
+<main>
+  <header class="top">
+    <h1 aria-hidden="true">AC Living 酒吧知識庫</h1>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="filters">
+    <input type="search" id="f-search" placeholder="搜尋名稱 / 材料 / 故事 / 標籤…">
+    <select id="f-category"><option value="">全部分類</option></select>
+    <select id="f-type"><option value="">全部類型</option></select>
+    <select id="f-sort">
+      <option value="id">預設排序</option>
+      <option value="name">名稱 A→Z</option>
+      <option value="abv-desc">酒精感：高→低</option>
+      <option value="abv-asc">酒精感：低→高</option>
+    </select>
+    <button id="f-reset" type="button">清除篩選</button>
+  </div>
+
+  <div class="charts">
+    <div class="chart-card">
+      <h2>分類數量</h2>
+      <div id="chart-category"></div>
+    </div>
+    <div class="chart-card">
+      <h2>常見標籤 Top 8</h2>
+      <div id="chart-tags"></div>
+    </div>
+    <div class="chart-card wide">
+      <h2>酸度 × 甜度 分布（依分類上色，圓點大小＝酒精感）</h2>
+      <svg id="chart-scatter" viewBox="0 0 720 260" style="width:100%; height:auto; display:block;"></svg>
+      <div class="legend" id="scatter-legend"></div>
+    </div>
+  </div>
+
+  <div class="results-head">
+    <span id="result-count"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none;">沒有符合條件的項目</div>
+</main>
+<div id="tooltip"></div>
+
+<script>
+const CAT_COLOR = {
+  cocktail: 'var(--series-1)',
+  gin:      'var(--series-2)',
+  whisky:   'var(--series-3)',
+  sake:     'var(--series-4)',
+  other:    'var(--series-5)'
+};
+const CAT_LABEL = {
+  cocktail: '調酒', gin: '琴酒', whisky: '威士忌', sake: '清酒/燒酎', other: '其他酒款/利口酒'
+};
+const TYPE_LABEL = {
+  classic: '經典', modern_classic: '現代經典', signature: '創意特調',
+  gin: '琴酒', spirits: '烈酒', other: '其他'
+};
+
+let DATA = [];
+let filtered = [];
+
+const tooltip = document.getElementById('tooltip');
+function showTip(html, x, y) {
+  tooltip.innerHTML = html;
+  tooltip.style.display = 'block';
+  tooltip.style.left = (x + 14) + 'px';
+  tooltip.style.top = (y + 14) + 'px';
+}
+function hideTip() { tooltip.style.display = 'none'; }
+
+fetch('data.json')
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    initFilters();
+    applyFilters();
+  })
+  .catch(err => {
+    document.getElementById('grid').innerHTML =
+      '<div class="empty">讀取 data.json 失敗，請確認以本機伺服器開啟此頁面（非直接雙擊 file://）。</div>';
+    console.error(err);
+  });
+
+function initFilters() {
+  const cats = [...new Set(DATA.map(d => d.category))].sort();
+  const types = [...new Set(DATA.map(d => d.type))].sort();
+  const catSel = document.getElementById('f-category');
+  const typeSel = document.getElementById('f-type');
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = (CAT_LABEL[c] || c) + ` (${c})`;
+    catSel.appendChild(o);
+  });
+  types.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t; o.textContent = TYPE_LABEL[t] || t;
+    typeSel.appendChild(o);
+  });
+
+  document.getElementById('f-search').addEventListener('input', applyFilters);
+  catSel.addEventListener('change', applyFilters);
+  typeSel.addEventListener('change', applyFilters);
+  document.getElementById('f-sort').addEventListener('change', applyFilters);
+  document.getElementById('f-reset').addEventListener('click', () => {
+    document.getElementById('f-search').value = '';
+    catSel.value = ''; typeSel.value = ''; document.getElementById('f-sort').value = 'id';
+    applyFilters();
+  });
+}
+
+function matchesSearch(item, q) {
+  if (!q) return true;
+  q = q.toLowerCase();
+  const hay = [
+    item.name, item.nameZh, item.base, item.story, item.source, item.pairing,
+    ...(item.tags || []),
+    ...(item.ingredients || []).map(i => i.name)
+  ].join(' ').toLowerCase();
+  return hay.includes(q);
+}
+
+function applyFilters() {
+  const q = document.getElementById('f-search').value.trim();
+  const cat = document.getElementById('f-category').value;
+  const type = document.getElementById('f-type').value;
+  const sort = document.getElementById('f-sort').value;
+
+  filtered = DATA.filter(d =>
+    matchesSearch(d, q) &&
+    (!cat || d.category === cat) &&
+    (!type || d.type === type)
+  );
+
+  if (sort === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
+  else if (sort === 'abv-desc') filtered.sort((a,b) => b.abv - a.abv);
+  else if (sort === 'abv-asc') filtered.sort((a,b) => a.abv - b.abv);
+  else filtered.sort((a,b) => a.id - b.id);
+
+  render();
+}
+
+function render() {
+  document.getElementById('stats').textContent = `共 ${DATA.length} 筆資料`;
+  document.getElementById('result-count').textContent = `符合條件：${filtered.length} 筆`;
+  renderCards();
+  renderCategoryChart();
+  renderTagChart();
+  renderScatter();
+}
+
+function renderCards() {
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+  grid.innerHTML = '';
+  empty.style.display = filtered.length ? 'none' : 'block';
+
+  filtered.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const ingredientsHtml = (item.ingredients && item.ingredients.length)
+      ? `<ul class="ingredients">${item.ingredients.map(i => `<li>${i.amount} — ${i.name}</li>`).join('')}</ul>`
+      : '';
+
+    const metaHtml = [
+      item.technique && item.technique !== '—' ? `技法：${item.technique}` : '',
+      item.glass && item.glass !== '—' ? `杯具：${item.glass}` : '',
+      item.garnish && item.garnish !== '—' ? `裝飾：${item.garnish}` : ''
+    ].filter(Boolean).map(t => `<div class="meta-row">${t}</div>`).join('');
+
+    const tagsHtml = (item.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+
+    card.innerHTML = `
+      <div class="card-head">
+        <div>
+          <h3>${item.name}</h3>
+          ${item.nameZh ? `<div class="zh">${item.nameZh}</div>` : ''}
+        </div>
+        <span class="badge" style="background:${CAT_COLOR[item.category] || 'var(--muted)'}">${CAT_LABEL[item.category] || item.category}</span>
+      </div>
+      <div class="base">${item.base}${item.type ? ' · ' + (TYPE_LABEL[item.type] || item.type) : ''}</div>
+      <div class="profile">
+        <div class="p">酸<b>${'●'.repeat(item.acid)}${'○'.repeat(5-item.acid)}</b></div>
+        <div class="p">甜<b>${'●'.repeat(item.sweet)}${'○'.repeat(5-item.sweet)}</b></div>
+        <div class="p">酒感<b>${'●'.repeat(item.abv)}${'○'.repeat(5-item.abv)}</b></div>
+      </div>
+      ${ingredientsHtml}
+      ${metaHtml}
+      <button class="toggle" type="button">故事與來源 ▾</button>
+      <div class="story">${item.story || ''}${item.source ? `（來源：${item.source}）` : ''}</div>
+      ${item.pairing ? `<div class="pairing">🍽 搭配建議：${item.pairing}</div>` : ''}
+      <div class="tags">${tagsHtml}</div>
+    `;
+
+    card.querySelector('.toggle').addEventListener('click', (e) => {
+      card.classList.toggle('expanded');
+      e.target.textContent = card.classList.contains('expanded') ? '故事與來源 ▴' : '故事與來源 ▾';
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function renderCategoryChart() {
+  const counts = {};
+  filtered.forEach(d => counts[d.category] = (counts[d.category] || 0) + 1);
+  const cats = Object.keys(CAT_LABEL).filter(c => counts[c]);
+  const max = Math.max(1, ...cats.map(c => counts[c]));
+  const el = document.getElementById('chart-category');
+  el.innerHTML = cats.map(c => `
+    <div class="bar-row">
+      <div class="label">${CAT_LABEL[c]}</div>
+      <div class="track"><div class="fill" style="width:${(counts[c]/max*100).toFixed(1)}%; background:${CAT_COLOR[c]}"></div></div>
+      <div class="value">${counts[c]}</div>
+    </div>
+  `).join('') || '<div class="empty" style="padding:10px 0;">無資料</div>';
+}
+
+function renderTagChart() {
+  const counts = {};
+  filtered.forEach(d => (d.tags || []).forEach(t => counts[t] = (counts[t] || 0) + 1));
+  const top = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0, 8);
+  const max = Math.max(1, ...top.map(t => t[1]));
+  const el = document.getElementById('chart-tags');
+  el.innerHTML = top.map(([tag, n]) => `
+    <div class="bar-row">
+      <div class="label" title="${tag}">${tag.length > 10 ? tag.slice(0,9)+'…' : tag}</div>
+      <div class="track"><div class="fill" style="width:${(n/max*100).toFixed(1)}%; background:var(--series-1)"></div></div>
+      <div class="value">${n}</div>
+    </div>
+  `).join('') || '<div class="empty" style="padding:10px 0;">無資料</div>';
+}
+
+function renderScatter() {
+  const svg = document.getElementById('chart-scatter');
+  const W = 720, H = 260, pad = { l: 34, r: 16, t: 10, b: 30 };
+  const plotW = W - pad.l - pad.r, plotH = H - pad.t - pad.b;
+  const xScale = v => pad.l + ((v - 1) / 4) * plotW;
+  const yScale = v => pad.t + plotH - ((v - 1) / 4) * plotH;
+
+  let svgParts = [];
+  // grid + axes
+  for (let v = 1; v <= 5; v++) {
+    svgParts.push(`<line class="grid-line" x1="${xScale(v)}" y1="${pad.t}" x2="${xScale(v)}" y2="${pad.t+plotH}"></line>`);
+    svgParts.push(`<line class="grid-line" x1="${pad.l}" y1="${yScale(v)}" x2="${pad.l+plotW}" y2="${yScale(v)}"></line>`);
+    svgParts.push(`<text x="${xScale(v)}" y="${pad.t+plotH+16}" text-anchor="middle">${v}</text>`);
+    svgParts.push(`<text x="${pad.l-8}" y="${yScale(v)+3}" text-anchor="end">${v}</text>`);
+  }
+  svgParts.push(`<line class="axis-line" x1="${pad.l}" y1="${pad.t+plotH}" x2="${pad.l+plotW}" y2="${pad.t+plotH}"></line>`);
+  svgParts.push(`<line class="axis-line" x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${pad.t+plotH}"></line>`);
+  svgParts.push(`<text x="${pad.l+plotW/2}" y="${H-4}" text-anchor="middle">酸度 →</text>`);
+  svgParts.push(`<text x="10" y="${pad.t+plotH/2}" text-anchor="middle" transform="rotate(-90 10 ${pad.t+plotH/2})">甜度 →</text>`);
+
+  // jitter same (acid,sweet,category) points slightly so overlaps are visible
+  const seen = {};
+  filtered.forEach(d => {
+    const key = d.acid + '-' + d.sweet;
+    seen[key] = (seen[key] || 0) + 1;
+    const n = seen[key];
+    const angle = n * 47 * Math.PI / 180;
+    const jitterR = n === 1 ? 0 : 5 + (n * 1.5);
+    const jx = n === 1 ? 0 : Math.cos(angle) * jitterR;
+    const jy = n === 1 ? 0 : Math.sin(angle) * jitterR;
+    const cx = xScale(d.acid) + jx;
+    const cy = yScale(d.sweet) + jy;
+    const r = 3 + d.abv * 1.3;
+    const color = CAT_COLOR[d.category] || 'var(--muted)';
+    svgParts.push(`<circle class="dot-point" cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${color}" fill-opacity="0.75" stroke="var(--surface-1)" stroke-width="1"
+      data-name="${d.name.replace(/"/g,'&quot;')}" data-cat="${CAT_LABEL[d.category]||d.category}" data-acid="${d.acid}" data-sweet="${d.sweet}" data-abv="${d.abv}"></circle>`);
+  });
+
+  svg.innerHTML = svgParts.join('');
+  svg.querySelectorAll('.dot-point').forEach(dot => {
+    dot.addEventListener('mousemove', (e) => {
+      showTip(`<b>${dot.dataset.name}</b><br>${dot.dataset.cat} · 酸${dot.dataset.acid} 甜${dot.dataset.sweet} 酒感${dot.dataset.abv}`, e.clientX, e.clientY);
+    });
+    dot.addEventListener('mouseleave', hideTip);
+  });
+
+  const legendCats = [...new Set(filtered.map(d => d.category))];
+  document.getElementById('scatter-legend').innerHTML = legendCats.map(c =>
+    `<span><span class="dot" style="background:${CAT_COLOR[c]}"></span>${CAT_LABEL[c] || c}</span>`
+  ).join('');
+}
+</script>
+</body>
+</html>

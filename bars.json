@@ -166,5 +166,25 @@
     ],
     "story": "藏在林森北路老街區裡的無招牌 speakeasy，平常門是關著的，只有玻璃門上小小的「Bar MOSAIC」字樣。老闆身兼調酒師，因為太喜歡調酒而開店，所以只在週五六日營業（週五六分兩時段、週日到午夜）。經典調酒與斑斕 Grasshopper 非常好喝，特調如包種茶蘭姆酒加愛玉的 Gold Memory 也具在地特色。座位少、生意好，建議透過 IG 或 Line 預約。",
     "tags": ["speakeasy", "weekend only", "hidden", "linsen north", "taipei"]
+  },
+  {
+    "id": 11,
+    "name": "Bar Weekend",
+    "nameZh": "台北茶酒代表",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台北・大安（chez nous 司旅 B1）",
+    "visitDate": "",
+    "style": "茶酒專門 / 無酒單 / 熱萃茶酒",
+    "drinks": [
+      { "name": "伯爵茶酒", "note": "" },
+      { "name": "紅茶 Negroni", "note": "" },
+      { "name": "碧雲引蜂", "note": "" },
+      { "name": "紫蘇梅酒特調", "note": "" },
+      { "name": "鐵觀音 Daiquiri", "note": "" },
+      { "name": "照葉林", "note": "" }
+    ],
+    "story": "台北茶酒的代表。從金山南路的 Swagger x Old'98 一路喝到現在：Old'98 於 2019 年 4 月熄燈後，韋德暫居國父紀念館附近 COMMONS 餐酒館的地下室，2020 年 3 月 Bar Weekend 在大安站旁的司旅飯店地下室定下來，店中央有一棵櫻花樹。韋德的茶酒用熱萃而非冷泡——茶葉與基酒同鍋加熱、靠溫度與放涼時間控制萃取（酒窖收藏 id 501 白桃烏龍 Gin 的技法出處），茶香比冷泡更濃郁圓潤。有店貓。",
+    "tags": ["tea cocktail", "no menu", "hot extraction", "cherry blossom", "cat", "taipei", "regular"]
   }
 ]

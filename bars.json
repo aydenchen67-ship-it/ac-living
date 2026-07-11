@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "name": "Bar Sample",
+    "nameZh": "示範酒吧（可請 Claude 替換成真實紀錄）",
+    "country": "日本",
+    "flag": "🇯🇵",
+    "city": "東京・新宿",
+    "visitDate": "2025-11",
+    "style": "Speakeasy / 藥草調酒",
+    "rating": 4,
+    "drinks": [
+      { "name": "Herbal Negroni", "note": "自製藥草利口酒版本，草本層次深", "rating": 4 },
+      { "name": "Seasonal Gimlet", "note": "當季柑橘，酸度明亮，收尾乾淨", "rating": 5 }
+    ],
+    "story": "這是一筆示範資料，展示酒吧體驗的紀錄格式：整體氛圍、值得記住的細節、跟調酒師聊到的東西、下次想試的酒。跟 Claude 說「新增酒吧紀錄」即可加入真實紀錄並刪除這筆。",
+    "tags": ["speakeasy", "herbal", "tokyo"]
+  }
+]

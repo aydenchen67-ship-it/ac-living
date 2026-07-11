@@ -80,6 +80,32 @@
     white-space: nowrap;
   }
 
+  /* mode switch */
+  .mode-switch {
+    display: flex;
+    gap: 0;
+    margin-bottom: 18px;
+    border: 1px solid var(--card-brd2);
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+  }
+  .mode-btn {
+    background: var(--card);
+    border: none;
+    color: var(--ink-2);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 14px;
+    padding: 11px 26px;
+    cursor: pointer;
+  }
+  .mode-btn + .mode-btn { border-left: 1px solid var(--card-brd2); }
+  .mode-btn.active {
+    background: var(--chip-bg);
+    color: var(--yellow);
+  }
+  .mode-btn:hover:not(.active) { color: var(--ink); }
+
   /* filter tabs */
   .tabs {
     display: flex;
@@ -212,6 +238,22 @@
     padding: 3px 9px;
   }
 
+  /* bar rating stars */
+  .stars {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+    margin-bottom: 12px;
+  }
+  .stars .dim { color: var(--track); }
+  .stars .r-label {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 10.5px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-right: 8px;
+  }
+
   /* expanded detail */
   .detail { display: none; margin-top: 16px; }
   .card.expanded .detail { display: block; }
@@ -247,6 +289,26 @@
     margin-top: 8px;
   }
 
+  /* drinks tried list in bar card */
+  .drink-list { margin: 12px 0 4px; }
+  .drink-item {
+    border-left: 2px solid var(--card-brd2);
+    padding: 6px 0 6px 12px;
+    margin: 8px 0;
+  }
+  .drink-item .d-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .drink-item .d-name .d-stars { color: var(--yellow); font-size: 12px; margin-left: 8px; letter-spacing: 1px; }
+  .drink-item .d-note {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-top: 3px;
+  }
+
   .type-chip {
     font-family: ui-monospace, Consolas, monospace;
     font-size: 10.5px;
@@ -267,6 +329,7 @@
     font-family: ui-monospace, Consolas, monospace;
     font-size: 14px;
     grid-column: 1 / -1;
+    line-height: 2;
   }
 
   .toast {
@@ -292,17 +355,22 @@
 </style>
 </head>
 <body>
-<h1 class="sr-only">AC Cellar 飲品記錄庫：可搜尋篩選的調酒與酒款資料庫</h1>
+<h1 class="sr-only">AC Cellar：品飲紀錄與旅行酒吧體驗的可搜尋資料庫</h1>
 <main>
   <header class="top">
     <div>
       <h1 aria-hidden="true">AC Cellar</h1>
-      <div class="sub">Drink Library</div>
+      <div class="sub" id="header-sub">Drink Library</div>
     </div>
     <div class="spacer"></div>
     <button class="btn" id="export-btn" type="button">📋 匯出給 AC</button>
     <div class="count-badge" id="count-badge">…</div>
   </header>
+
+  <div class="mode-switch" role="tablist">
+    <button class="mode-btn active" id="mode-drinks" type="button">🍸 品飲紀錄</button>
+    <button class="mode-btn" id="mode-bars" type="button">🌍 酒吧體驗</button>
+  </div>
 
   <div class="tabs" id="tabs">
     <input class="search" id="search" type="search" placeholder="搜尋酒名、基酒、標籤...">
@@ -342,46 +410,97 @@ const CAT_ICON = {
   brandy: '🍇', vodka: '🧊', wine: '🍷', sake: '🍶', beer: '🍺', other: '🍵'
 };
 
+let MODE = 'drinks';          // 'drinks' | 'bars'
 let DATA = [];
+let BARS = [];
 let curCat = '';
 let curSub = '';
+let curCountry = '';
 let curSearch = '';
 
-fetch('data.json')
-  .then(r => r.json())
-  .then(data => { DATA = data; buildTabs(); render(); })
-  .catch(err => {
-    document.getElementById('grid').innerHTML =
-      '<div class="empty">讀取 data.json 失敗，請確認以本機伺服器開啟此頁面。</div>';
-    console.error(err);
-  });
+Promise.all([
+  fetch('data.json').then(r => r.json()),
+  fetch('bars.json').then(r => r.ok ? r.json() : []).catch(() => [])
+]).then(([drinks, bars]) => {
+  DATA = drinks;
+  BARS = bars;
+  buildFilterBar();
+  render();
+}).catch(err => {
+  document.getElementById('grid').innerHTML =
+    '<div class="empty">讀取資料失敗，請確認以本機伺服器開啟此頁面。</div>';
+  console.error(err);
+});
 
-function buildTabs() {
+/* ── mode switching ── */
+document.getElementById('mode-drinks').addEventListener('click', () => setMode('drinks'));
+document.getElementById('mode-bars').addEventListener('click', () => setMode('bars'));
+
+function setMode(m) {
+  if (MODE === m) return;
+  MODE = m;
+  curSearch = '';
+  document.getElementById('mode-drinks').classList.toggle('active', m === 'drinks');
+  document.getElementById('mode-bars').classList.toggle('active', m === 'bars');
+  document.getElementById('header-sub').textContent = m === 'drinks' ? 'Drink Library' : 'Bar Journal';
+  buildFilterBar();
+  render();
+}
+
+/* ── filter bar (rebuilt per mode) ── */
+function buildFilterBar() {
   const tabs = document.getElementById('tabs');
-  const search = document.getElementById('search');
-  CATS.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'tab' + (c.key === curCat ? ' active' : '');
-    b.type = 'button';
-    b.textContent = c.label;
-    b.dataset.key = c.key;
-    b.addEventListener('click', () => {
-      curCat = c.key;
-      curSub = '';
-      tabs.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === curCat));
-      buildSubtabs();
-      render();
-    });
-    tabs.insertBefore(b, search);
-  });
-  buildSubtabs();
+  tabs.innerHTML = '';
+
+  const search = document.createElement('input');
+  search.className = 'search';
+  search.id = 'search';
+  search.type = 'search';
+  search.placeholder = MODE === 'drinks' ? '搜尋酒名、基酒、標籤...' : '搜尋店名、城市、喝過的酒...';
   search.addEventListener('input', () => { curSearch = search.value.trim().toLowerCase(); render(); });
+  tabs.appendChild(search);
+
+  if (MODE === 'drinks') {
+    CATS.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'tab' + (c.key === curCat ? ' active' : '');
+      b.type = 'button';
+      b.textContent = c.label;
+      b.dataset.key = c.key;
+      b.addEventListener('click', () => {
+        curCat = c.key;
+        curSub = '';
+        tabs.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === curCat));
+        buildSubtabs();
+        render();
+      });
+      tabs.insertBefore(b, search);
+    });
+    buildSubtabs();
+  } else {
+    const countries = [...new Map(BARS.map(b => [b.country, b.flag || '📍'])).entries()];
+    const all = [['', '全部'], ...countries.map(([c, f]) => [c, `${f} ${c}`])];
+    all.forEach(([key, label]) => {
+      const b = document.createElement('button');
+      b.className = 'tab' + (key === curCountry ? ' active' : '');
+      b.type = 'button';
+      b.textContent = label;
+      b.dataset.key = key;
+      b.addEventListener('click', () => {
+        curCountry = key;
+        tabs.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.key === curCountry));
+        render();
+      });
+      tabs.insertBefore(b, search);
+    });
+    document.getElementById('subtabs').classList.remove('show');
+  }
 }
 
 function buildSubtabs() {
   const wrap = document.getElementById('subtabs');
   wrap.innerHTML = '';
-  if (curCat !== 'cocktail') { wrap.classList.remove('show'); return; }
+  if (MODE !== 'drinks' || curCat !== 'cocktail') { wrap.classList.remove('show'); return; }
   wrap.classList.add('show');
   SUBTYPES.forEach(s => {
     const b = document.createElement('button');
@@ -397,7 +516,8 @@ function buildSubtabs() {
   });
 }
 
-function matches(item) {
+/* ── filtering ── */
+function drinkMatches(item) {
   if (curCat && item.category !== curCat) return false;
   if (curCat === 'cocktail' && curSub && item.type !== curSub) return false;
   if (curSearch) {
@@ -411,6 +531,24 @@ function matches(item) {
   return true;
 }
 
+function barMatches(bar) {
+  if (curCountry && bar.country !== curCountry) return false;
+  if (curSearch) {
+    const hay = [
+      bar.name, bar.nameZh, bar.country, bar.city, bar.style, bar.story, bar.visitDate,
+      ...(bar.tags || []),
+      ...(bar.drinks || []).flatMap(d => [d.name, d.note])
+    ].join(' ').toLowerCase();
+    if (!hay.includes(curSearch)) return false;
+  }
+  return true;
+}
+
+function currentList() {
+  return MODE === 'drinks' ? DATA.filter(drinkMatches) : BARS.filter(barMatches);
+}
+
+/* ── rendering ── */
 function meterHtml(cls, label, val) {
   return `
     <div class="meter ${cls}">
@@ -420,71 +558,117 @@ function meterHtml(cls, label, val) {
     </div>`;
 }
 
+function starsHtml(n) {
+  return '★'.repeat(n) + `<span class="dim">${'★'.repeat(5-n)}</span>`;
+}
+
 function render() {
-  const list = DATA.filter(matches);
+  const list = currentList();
   document.getElementById('count-badge').textContent = `${list.length} 筆`;
 
   const grid = document.getElementById('grid');
   grid.innerHTML = '';
   if (!list.length) {
-    grid.innerHTML = '<div class="empty">沒有符合條件的品項</div>';
+    grid.innerHTML = MODE === 'bars' && !BARS.length
+      ? '<div class="empty">還沒有酒吧紀錄。<br>跟 Claude 說「新增酒吧紀錄」開始建立你的旅行酒吧地圖 🌍</div>'
+      : '<div class="empty">沒有符合條件的品項</div>';
     return;
   }
 
   list.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    const typeChip = (item.category === 'cocktail' && TYPE_LABEL[item.type])
-      ? `<span class="type-chip type-${item.type}">${TYPE_LABEL[item.type]}</span>` : '';
-
-    const tagsHtml = (item.tags || []).map(t => `<span class="tag">#${t}</span>`).join('');
-
-    const ingredientsHtml = (item.ingredients && item.ingredients.length)
-      ? `<ul class="ingredients">${item.ingredients.map(i => `<li>${i.amount} — ${i.name}</li>`).join('')}</ul>`
-      : '';
-
-    const techRow = [
-      ['技法', item.technique], ['杯型', item.glass], ['裝飾', item.garnish]
-    ].filter(([,v]) => v && v !== '—')
-     .map(([k,v]) => `<span class="d-key">${k}</span>${v}`).join('　·　');
-
-    card.innerHTML = `
-      <div class="card-head">
-        <span class="icon">${CAT_ICON[item.category] || '🍵'}</span>
-        <h3>${item.name}${typeChip}</h3>
-        ${item.nameZh ? `<span class="zh">${item.nameZh}</span>` : ''}
-      </div>
-      <div class="base">${item.base}</div>
-      <div class="meters">
-        ${meterHtml('acid', 'ACID 酸', item.acid)}
-        ${meterHtml('sweet', 'SWEET 甜', item.sweet)}
-        ${meterHtml('abv', 'ABV 酒感', item.abv)}
-      </div>
-      <div class="tags">${tagsHtml}</div>
-      <div class="detail">
-        ${techRow ? `<div class="d-row">${techRow}</div>` : ''}
-        ${ingredientsHtml}
-        ${item.pairing ? `<div class="pairing">🍽 餐搭　${item.pairing}</div>` : ''}
-        ${item.story ? `<div class="story">${item.story}</div>` : ''}
-        ${item.source ? `<div class="src">來源 · ${item.source}</div>` : ''}
-      </div>
-    `;
-
-    card.addEventListener('click', () => card.classList.toggle('expanded'));
-    grid.appendChild(card);
+    grid.appendChild(MODE === 'drinks' ? drinkCard(item) : barCard(item));
   });
 }
 
-/* export current (filtered) list as JSON to clipboard */
+function drinkCard(item) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const typeChip = (item.category === 'cocktail' && TYPE_LABEL[item.type])
+    ? `<span class="type-chip type-${item.type}">${TYPE_LABEL[item.type]}</span>` : '';
+
+  const tagsHtml = (item.tags || []).map(t => `<span class="tag">#${t}</span>`).join('');
+
+  const ingredientsHtml = (item.ingredients && item.ingredients.length)
+    ? `<ul class="ingredients">${item.ingredients.map(i => `<li>${i.amount} — ${i.name}</li>`).join('')}</ul>`
+    : '';
+
+  const techRow = [
+    ['技法', item.technique], ['杯型', item.glass], ['裝飾', item.garnish]
+  ].filter(([,v]) => v && v !== '—')
+   .map(([k,v]) => `<span class="d-key">${k}</span>${v}`).join('　·　');
+
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="icon">${CAT_ICON[item.category] || '🍵'}</span>
+      <h3>${item.name}${typeChip}</h3>
+      ${item.nameZh ? `<span class="zh">${item.nameZh}</span>` : ''}
+    </div>
+    <div class="base">${item.base}</div>
+    <div class="meters">
+      ${meterHtml('acid', 'ACID 酸', item.acid)}
+      ${meterHtml('sweet', 'SWEET 甜', item.sweet)}
+      ${meterHtml('abv', 'ABV 酒感', item.abv)}
+    </div>
+    <div class="tags">${tagsHtml}</div>
+    <div class="detail">
+      ${techRow ? `<div class="d-row">${techRow}</div>` : ''}
+      ${ingredientsHtml}
+      ${item.pairing ? `<div class="pairing">🍽 餐搭　${item.pairing}</div>` : ''}
+      ${item.story ? `<div class="story">${item.story}</div>` : ''}
+      ${item.source ? `<div class="src">來源 · ${item.source}</div>` : ''}
+    </div>
+  `;
+
+  card.addEventListener('click', () => card.classList.toggle('expanded'));
+  return card;
+}
+
+function barCard(bar) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const tagsHtml = (bar.tags || []).map(t => `<span class="tag">#${t}</span>`).join('');
+
+  const baseParts = [bar.city, bar.style, bar.visitDate ? `造訪 ${bar.visitDate}` : '']
+    .filter(Boolean).join('　·　');
+
+  const drinksHtml = (bar.drinks && bar.drinks.length)
+    ? `<div class="drink-list">${bar.drinks.map(d => `
+        <div class="drink-item">
+          <div class="d-name">${d.name}${d.rating ? `<span class="d-stars">${'★'.repeat(d.rating)}</span>` : ''}</div>
+          ${d.note ? `<div class="d-note">${d.note}</div>` : ''}
+        </div>`).join('')}</div>`
+    : '';
+
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="icon">${bar.flag || '📍'}</span>
+      <h3>${bar.name}</h3>
+      ${bar.nameZh ? `<span class="zh">${bar.nameZh}</span>` : ''}
+    </div>
+    <div class="base">${baseParts}</div>
+    ${bar.rating ? `<div class="stars"><span class="r-label">RATING</span>${starsHtml(bar.rating)}</div>` : ''}
+    <div class="tags">${tagsHtml}</div>
+    <div class="detail">
+      ${drinksHtml}
+      ${bar.story ? `<div class="story">${bar.story}</div>` : ''}
+    </div>
+  `;
+
+  card.addEventListener('click', () => card.classList.toggle('expanded'));
+  return card;
+}
+
+/* ── export current (filtered) list as JSON to clipboard ── */
 document.getElementById('export-btn').addEventListener('click', (e) => {
   e.stopPropagation();
-  const list = DATA.filter(matches);
-  const text = JSON.stringify(list, null, 2);
-  navigator.clipboard.writeText(text).then(() => {
-    showToast(`已複製 ${list.length} 筆資料到剪貼簿，可直接貼給 AC`);
+  const list = currentList();
+  const label = MODE === 'drinks' ? '品飲紀錄' : '酒吧紀錄';
+  navigator.clipboard.writeText(JSON.stringify(list, null, 2)).then(() => {
+    showToast(`已複製 ${list.length} 筆${label}到剪貼簿，可直接貼給 AC`);
   }).catch(() => {
-    showToast('複製失敗，請改用瀏覽器直接開啟 data.json');
+    showToast('複製失敗，請改用瀏覽器直接開啟 JSON 檔');
   });
 });
 

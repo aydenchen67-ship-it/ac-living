@@ -1221,5 +1221,29 @@
     "source": "Truffles On The Rocks",
     "tags": ["chartreuse", "calvados", "swizzle", "crushed ice"],
     "pairing": "輕食沙拉、草本料理"
+  },
+  {
+    "id": 504,
+    "category": "cocktail",
+    "type": "signature",
+    "name": "Teruyabayashi AC Version",
+    "nameZh": "照葉林（AC 偏好版）",
+    "base": "Gin（Dry Gin 或白桃烏龍 Gin）",
+    "acid": 1,
+    "sweet": 2,
+    "abv": 2,
+    "ingredients": [
+      { "amount": "60ml", "name": "Dry Gin 或白桃烏龍 Gin（稍微加熱，用以刷抹茶）" },
+      { "amount": "1–2g", "name": "抹茶粉（過篩）" },
+      { "amount": "120ml（或隨喜）", "name": "白桃烏龍茶（巃蕪）" },
+      { "amount": "1 bar spoon（可省略）", "name": "糖漿或蜂蜜" }
+    ],
+    "technique": "抹茶刷（Gin 加熱刷抹茶）/ Build",
+    "glass": "高球杯 + 長冰",
+    "garnish": "無",
+    "story": "照葉林原為日式調酒，此版本源自 AC 與 7th Japanese 調酒師們的交流討論，調整為更符合現代人口味的表達——以稍微加熱的琴酒刷過篩抹茶，搭配巃蕪的白桃烏龍茶，讓抹茶鮮苦感與烏龍茶花果香在高球格式中互補共存。糖漿或蜂蜜可依喜好微調甜度。",
+    "source": "7th Japanese × AC 偏好版",
+    "tags": ["gin", "matcha", "oolong", "tea", "highball", "japanese", "signature", "ac original"],
+    "pairing": "和菓子、抹茶甜點、輕食"
   }
 ]

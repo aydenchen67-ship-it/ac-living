@@ -1270,5 +1270,122 @@
     "source": "卡司故事 咖啡調酒影片",
     "tags": ["coffee", "whisky", "brandy", "fizz", "grape", "highball", "infusion", "cold brew", "sherry cask", "ac original"],
     "pairing": "炸物（炸雞、鹹酥雞）、鹹食早午餐（火腿起司）、煙燻烤肉"
+  },
+  {
+    "id": 506,
+    "category": "cocktail",
+    "type": "classic",
+    "name": "Grasshopper",
+    "nameZh": "綠色蚱蜢",
+    "base": "Crème de Menthe + Crème de Cacao",
+    "acid": 1,
+    "sweet": 4,
+    "abv": 2,
+    "ingredients": [
+      { "amount": "30ml", "name": "綠薄荷利口酒（Green Crème de Menthe）" },
+      { "amount": "30ml", "name": "白可可利口酒（White Crème de Cacao）" },
+      { "amount": "30ml", "name": "鮮奶油" }
+    ],
+    "technique": "Shake（確實搖勻乳化）",
+    "glass": "Coupe",
+    "garnish": "無（或薄荷葉、刨黑巧克力）",
+    "story": "1910 年代末紐奧良法語區百年老店 Tujague's 的二代老闆 Philip Guichet 為紐約調酒比賽創作，拿下第二名後成為店內招牌。禁酒令後在美國中西部大爆紅，是 1950–60 年代餐後酒（After-Dinner Drink）的代表——等比例的薄荷、可可與鮮奶油，像一杯會喝的薄荷巧克力，鮮綠色澤與蚱蜢之名由綠薄荷利口酒而來。AC 於福岡 Bar Oscar 品飲；台北 BAR MOSAIC 的斑斕（香蘭葉）版本也非常出色。",
+    "source": "Tujague's New Orleans / Philip Guichet",
+    "tags": ["mint", "cacao", "cream", "dessert", "after-dinner", "equal parts", "classic"],
+    "pairing": "本身即是餐後甜點酒；如需搭配可佐黑巧克力或原味乳酪蛋糕"
+  },
+  {
+    "id": 507,
+    "category": "cocktail",
+    "type": "classic",
+    "name": "Clover Club",
+    "nameZh": "三葉草俱樂部",
+    "base": "Gin",
+    "acid": 3,
+    "sweet": 3,
+    "abv": 3,
+    "ingredients": [
+      { "amount": "45ml", "name": "Gin" },
+      { "amount": "15ml", "name": "新鮮檸檬汁" },
+      { "amount": "15ml", "name": "覆盆莓糖漿" },
+      { "amount": "1 顆", "name": "蛋白" }
+    ],
+    "technique": "Dry Shake / Shake",
+    "glass": "Coupe",
+    "garnish": "覆盆莓（或無）",
+    "story": "誕生於 1880–90 年代費城 Bellevue-Stratford 飯店的同名紳士俱樂部，是禁酒令前美國東岸的名酒。粉紅色澤讓它在 20 世紀中被譏為「娘們的酒」而沒落數十年，直到 2008 年 Julie Reiner 在布魯克林開設致敬同名酒吧 Clover Club，才帶動全面復興——覆盆莓的果酸配上蛋白綿密泡沫，證明粉紅色從來不是原罪，而是平衡的藝術。",
+    "source": "Clover Club Philadelphia 1880s / Julie Reiner revival 2008",
+    "tags": ["gin", "sour", "raspberry", "egg white", "pre-prohibition", "classic"],
+    "pairing": "起司拼盤、海鮮前菜、輕食沙拉"
+  },
+  {
+    "id": 508,
+    "category": "cocktail",
+    "type": "classic",
+    "name": "White Lady",
+    "nameZh": "白色佳人",
+    "base": "Gin",
+    "acid": 3,
+    "sweet": 2,
+    "abv": 3,
+    "ingredients": [
+      { "amount": "40ml", "name": "Gin" },
+      { "amount": "30ml", "name": "君度橙酒（Cointreau）" },
+      { "amount": "20ml", "name": "新鮮檸檬汁" }
+    ],
+    "technique": "Shake",
+    "glass": "Coupe",
+    "garnish": "無（或檸檬皮）",
+    "story": "Harry MacElhone 1919 年於倫敦 Ciro's Club 初創（當時用薄荷利口酒），1929 年在巴黎 Harry's New York Bar 改以 Gin 定型，成為傳世經典。日本銀座 Bar Tender 的上田和男以 Hard Shake 詮釋的 White Lady 是當代標竿——而福岡 Bar Oscar 的長友修一正是上田和男的弟子，這條師承線讓這杯酒在日式 Authentic Bar 文化中有特殊地位。純粹的琴酒、橙香與檸檬酸，是檢驗調酒師 shake 功力的試金石。",
+    "source": "Harry MacElhone / Harry's New York Bar Paris 1929",
+    "tags": ["gin", "sour", "citrus", "iba", "classic", "hard shake"],
+    "pairing": "海鮮前菜、生蠔、白肉料理"
+  },
+  {
+    "id": 509,
+    "category": "cocktail",
+    "type": "classic",
+    "name": "Negroni Sbagliato",
+    "nameZh": "做錯的內格羅尼",
+    "base": "Campari + Sweet Vermouth + Prosecco",
+    "acid": 1,
+    "sweet": 3,
+    "abv": 2,
+    "ingredients": [
+      { "amount": "30ml", "name": "Campari" },
+      { "amount": "30ml", "name": "甜香艾酒（Sweet Vermouth）" },
+      { "amount": "30ml", "name": "Prosecco（氣泡酒，取代 Gin）" }
+    ],
+    "technique": "Build（杯中直調，最後補 Prosecco）",
+    "glass": "Rocks + 大冰塊",
+    "garnish": "橙片",
+    "story": "「Sbagliato」在義大利文是「弄錯了」——1972 年米蘭 Bar Basso 的 Mirko Stocchetto 調 Negroni 時忙中拿錯瓶子，把 Gin 抓成了 Prosecco，客人喝了反而大讚，將錯就錯成為店史招牌。氣泡取代烈酒讓苦甜架構變得輕盈明亮，是 Negroni 家族中最適合白天與長飲的成員。2022 年因《龍族前傳》演員 Emma D'Arcy 一句「Negroni... Sbagliato... with Prosecco in it」爆紅全網，讓 Bar Basso 朝聖人潮再起。AC 在台北 Liowl 最喜歡的 Negroni twist。",
+    "source": "Mirko Stocchetto / Bar Basso Milano 1972",
+    "tags": ["negroni", "campari", "prosecco", "low abv", "aperitivo", "classic"],
+    "pairing": "開胃小食、義式前菜、醃漬橄欖與起司"
+  },
+  {
+    "id": 510,
+    "category": "cocktail",
+    "type": "modern_classic",
+    "name": "Espresso Martini",
+    "nameZh": "濃縮咖啡馬丁尼",
+    "base": "Vodka",
+    "acid": 2,
+    "sweet": 3,
+    "abv": 3,
+    "ingredients": [
+      { "amount": "40ml", "name": "Vodka" },
+      { "amount": "20ml", "name": "咖啡利口酒（如 Mr. Black）" },
+      { "amount": "30ml", "name": "現萃 Espresso" },
+      { "amount": "5–10ml", "name": "糖漿（視咖啡調整）" }
+    ],
+    "technique": "Hard Shake（搖出綿密 crema 泡沫）",
+    "glass": "Coupe / Martini",
+    "garnish": "3 顆咖啡豆",
+    "story": "1983 年倫敦 Soho Brasserie 的傳奇調酒師 Dick Bradsell 為一位名模即興創作，據說她的要求是「先叫醒我，再放倒我（wake me up, then f*** me up）」。原名 Vodka Espresso，在 90 年代 Martini 杯風潮中改名 Espresso Martini 而風靡全球，現已列入 IBA 官方酒譜。現萃咖啡的溫度與油脂是 crema 泡沫的關鍵，也是這杯酒好壞的分水嶺。",
+    "source": "Dick Bradsell / Soho Brasserie London 1983",
+    "tags": ["vodka", "coffee", "espresso", "iba", "modern classic", "after-dinner"],
+    "pairing": "提拉米蘇、黑巧克力、餐後獨飲"
   }
 ]

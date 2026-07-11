@@ -368,7 +368,7 @@
   </header>
 
   <div class="mode-switch" role="tablist">
-    <button class="mode-btn active" id="mode-drinks" type="button">🍸 品飲紀錄</button>
+    <button class="mode-btn active" id="mode-drinks" type="button">🍸 酒窖收藏</button>
     <button class="mode-btn" id="mode-bars" type="button">🌍 酒吧體驗</button>
   </div>
 
@@ -664,7 +664,7 @@ function barCard(bar) {
 document.getElementById('export-btn').addEventListener('click', (e) => {
   e.stopPropagation();
   const list = currentList();
-  const label = MODE === 'drinks' ? '品飲紀錄' : '酒吧紀錄';
+  const label = MODE === 'drinks' ? '酒窖收藏' : '酒吧紀錄';
   navigator.clipboard.writeText(JSON.stringify(list, null, 2)).then(() => {
     showToast(`已複製 ${list.length} 筆${label}到剪貼簿，可直接貼給 AC`);
   }).catch(() => {

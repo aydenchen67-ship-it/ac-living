@@ -94,5 +94,77 @@
     ],
     "story": "概念是「不端架子的街邊 BAR、陪伴日常的夜之喫茶店」，是福岡最早投入咖啡調酒的酒吧之一，自家製利口酒近百種排滿整面牆。英文流利的調酒師加上滿滿的西方酒客，讓人有回到信義區的感覺，妥妥的 washu 感。點了 Hinoki White Negroni 來個重擊收尾。",
     "tags": ["coffee cocktail", "house liqueur", "international", "fukuoka", "daimyo"]
+  },
+  {
+    "id": 7,
+    "name": "Liowl",
+    "nameZh": "一人酒吧",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台北・信義安和（光復南路）",
+    "visitDate": "",
+    "style": "一人酒吧 / 水果風味 / 下午開喝",
+    "drinks": [
+      { "name": "西瓜 Aperol Spritz", "note": "慢磨機榨出的西瓜汁口感很好，非常清爽的海島風下午酒" },
+      { "name": "Espresso Martini", "note": "非常優秀" },
+      { "name": "Negroni Sbagliato", "note": "最喜歡的 Negroni twist——以 Prosecco 取代 Gin" },
+      { "name": "Paper Plane", "note": "" },
+      { "name": "Jasmine", "note": "" },
+      { "name": "草莓特調", "note": "" }
+    ],
+    "story": "下午三點就開的一人酒吧，主理人 Pin（陳品汎）電影系出身，歷練過倫敦 Gordon Ramsay 餐廳與 Zuma 集團，並在奈良名店 Lamp Bar 修業，至今每年固定回奈良客座。經典與新經典都很優秀，各式水果系列清爽好喝。有黑貓店長嘿美。",
+    "tags": ["one-person bar", "fruit", "daytime", "cat", "taipei", "regular"]
+  },
+  {
+    "id": 8,
+    "name": "7th Japanese Bar",
+    "nameZh": "セブンス",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台北・中山 七條通（林森北路巷內 2F）",
+    "visitDate": "",
+    "style": "日式酒吧 / 預約制 / 浴衣調酒師",
+    "drinks": [
+      { "name": "白桃烏龍照葉林", "note": "白桃烏龍熱萃 Gin 刷抹茶的照葉林（酒窖收藏 id 504 的原型）" },
+      { "name": "Bamboo", "note": "" },
+      { "name": "Spumoni", "note": "" },
+      { "name": "各式 Negroni", "note": "" },
+      { "name": "Jasmine", "note": "" },
+      { "name": "Charlie Chaplin", "note": "" }
+    ],
+    "story": "以店址「七條通」命名的日式酒吧，源自神戶的日本團隊創立，調酒師著日式浴衣，經典與新經典還原非常精準。主調酒師安娜姊現在鮮少站吧檯，調酒師來來去去，近兩年 Hisa 與薇薇都很不錯。店內食物非常好吃，章魚燒值得慢慢等。早期可以抽雪茄，有店貓。",
+    "tags": ["japanese", "jotong", "reservation", "food", "cat", "taipei", "regular"]
+  },
+  {
+    "id": 9,
+    "name": "Bar Mozaiku",
+    "nameZh": "馬賽克酒吧（暱稱：莫再苦）",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台南・中西區（國華街）",
+    "visitDate": "",
+    "style": "老牌日式無酒單酒吧 / 本格系",
+    "drinks": [
+      { "name": "Spumoni", "note": "最常喝之一" },
+      { "name": "Bamboo", "note": "最常喝之一" },
+      { "name": "Negroni", "note": "最常喝之一" }
+    ],
+    "story": "台南老牌本格系日式酒吧，2020 年遷入 85 年歷史的老洋房，無酒單、依喜好客製，藏酒琴酒破百款、威士忌兩百款以上。老闆阿鬼的經典調酒相當紮實。近期開起下午茶時段。",
+    "tags": ["japanese", "no menu", "authentic", "old house", "tainan", "regular"]
+  },
+  {
+    "id": 10,
+    "name": "BAR MOSAIC",
+    "nameZh": "馬賽克酒吧（台北）",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台北・中山（林森北路 487 號街區 218 室）",
+    "visitDate": "",
+    "style": "Speakeasy / 週末限定",
+    "drinks": [
+      { "name": "斑斕 Grasshopper", "note": "香蘭葉版綠色蚱蜢，非常好喝" }
+    ],
+    "story": "藏在林森北路老街區裡的無招牌 speakeasy，平常門是關著的，只有玻璃門上小小的「Bar MOSAIC」字樣。老闆身兼調酒師，因為太喜歡調酒而開店，所以只在週五六日營業（週五六分兩時段、週日到午夜）。經典調酒與斑斕 Grasshopper 非常好喝，特調如包種茶蘭姆酒加愛玉的 Gold Memory 也具在地特色。座位少、生意好，建議透過 IG 或 Line 預約。",
+    "tags": ["speakeasy", "weekend only", "hidden", "linsen north", "taipei"]
   }
 ]

@@ -1226,8 +1226,8 @@
     "id": 504,
     "category": "cocktail",
     "type": "signature",
-    "name": "Teruyabayashi AC Version",
-    "nameZh": "照葉林（AC 偏好版）",
+    "name": "Shoyojurin (White Peach Oolong)",
+    "nameZh": "照葉林（白桃烏龍版）",
     "base": "Gin（Dry Gin 或白桃烏龍 Gin）",
     "acid": 1,
     "sweet": 2,
@@ -1241,9 +1241,9 @@
     "technique": "抹茶刷（Gin 加熱刷抹茶）/ Build",
     "glass": "高球杯 + 長冰",
     "garnish": "無",
-    "story": "照葉林原為日式調酒，此版本源自 AC 與 7th Japanese 調酒師們的交流討論，調整為更符合現代人口味的表達——以稍微加熱的琴酒刷過篩抹茶，搭配巃蕪的白桃烏龍茶，讓抹茶鮮苦感與烏龍茶花果香在高球格式中互補共存。糖漿或蜂蜜可依喜好微調甜度。",
+    "story": "照葉樹林是東亞獨有的常綠闊葉林生態帶，從日本九州南部蔓延至喜馬拉雅山麓，林間終年翠綠，葉面在光照下油亮如鏡——「照葉」之名由此而來。日本調酒師以這片森林為意象，用抹茶的深邃鮮苦對應林底的幽暗靜謐，打造出同名調酒，是日式調酒將自然景致轉化為杯中風味的典型美學。AC 版本在與 7th Japanese 的調酒師們交流後重新梳理：換上白桃烏龍 Gin 刷抹茶，以巃蕪的白桃烏龍茶收尾，原本的沉靜苦感被茶的花果香氣托起，多了一層明亮與溫柔，像是陽光穿透了那片森林。",
     "source": "7th Japanese × AC 偏好版",
-    "tags": ["gin", "matcha", "oolong", "tea", "highball", "japanese", "signature", "ac original"],
+    "tags": ["gin", "matcha", "oolong", "white peach", "tea", "highball", "japanese", "signature", "ac original"],
     "pairing": "和菓子、抹茶甜點、輕食"
   }
 ]

@@ -1,19 +1,98 @@
 [
   {
     "id": 1,
-    "name": "Bar Sample",
-    "nameZh": "示範酒吧（可請 Claude 替換成真實紀錄）",
+    "name": "Bar Oscar",
+    "nameZh": "バー・オスカー",
     "country": "日本",
     "flag": "🇯🇵",
-    "city": "東京・新宿",
-    "visitDate": "2025-11",
-    "style": "Speakeasy / 藥草調酒",
-    "rating": 4,
+    "city": "福岡・大名",
+    "visitDate": "2026-03",
+    "style": "Authentic Bar / 經典與特調並重",
     "drinks": [
-      { "name": "Herbal Negroni", "note": "自製藥草利口酒版本，草本層次深", "rating": 4 },
-      { "name": "Seasonal Gimlet", "note": "當季柑橘，酸度明亮，收尾乾淨", "rating": 5 }
+      { "name": "草莓特調", "note": "季節水果特調" },
+      { "name": "Jasmine", "note": "" },
+      { "name": "Bamboo", "note": "" },
+      { "name": "Negroni", "note": "" },
+      { "name": "Sakura Sakura", "note": "" },
+      { "name": "Grasshopper", "note": "" }
     ],
-    "story": "這是一筆示範資料，展示酒吧體驗的紀錄格式：整體氛圍、值得記住的細節、跟調酒師聊到的東西、下次想試的酒。跟 Claude 說「新增酒吧紀錄」即可加入真實紀錄並刪除這筆。",
-    "tags": ["speakeasy", "herbal", "tokyo"]
+    "story": "特調跟經典都深得我心，即便點了冷門經典，調酒師也能精準復刻。主理人長友修一先生是日本代表性調酒師之一，師承資生堂パーラー的上田和男（Hard Shake 宗師），他 shake 的聲音每下都極具韻律感，相當悅耳。",
+    "tags": ["authentic", "classic", "fukuoka", "daimyo"]
+  },
+  {
+    "id": 2,
+    "name": "BAR SEBEK",
+    "nameZh": "バー・セベク",
+    "country": "日本",
+    "flag": "🇯🇵",
+    "city": "福岡・中洲川端（人形小路）",
+    "visitDate": "2026-03",
+    "style": "路地裏小店 / 競賽派創作",
+    "drinks": [
+      { "name": "Tourbillon（陀飛輪）", "note": "干邑＋紅茶＋玫瑰糖漿，2017 Hennessy X.O 調酒大賽冠軍作品，相當不賴" }
+    ],
+    "story": "藏在中洲川端保有昭和氣氛的人形小路裡，是間很有特色的小店。主理人大津麻紀子是拿過多座大獎的女調酒師，招牌 Tourbillon 就是她的冠軍作品。可惜不會日文，交流有點遺憾。",
+    "tags": ["speakeasy", "alley", "competition", "fukuoka", "nakasu"]
+  },
+  {
+    "id": 3,
+    "name": "TONY'S BAR",
+    "nameZh": "トニーズバー",
+    "country": "日本",
+    "flag": "🇯🇵",
+    "city": "福岡・博多駅東",
+    "visitDate": "2026-03",
+    "style": "American Shot Bar / 木質暖調",
+    "drinks": [
+      { "name": "Spumoni", "note": "很好喝" }
+    ],
+    "story": "美式木質裝潢配上老闆收藏的美國古董，到訪的時候酒吧裡寂靜又溫暖。杯墊上的「The world is yours」切中人心，當下的氛圍讓人有種重拾動力的感覺。",
+    "tags": ["american", "cozy", "fukuoka", "hakata"]
+  },
+  {
+    "id": 4,
+    "name": "BAR OLD ENGLAND",
+    "nameZh": "バー・オールド・イングランド",
+    "country": "日本",
+    "flag": "🇯🇵",
+    "city": "福岡・博多駅筑紫口（地下）",
+    "visitDate": "2026-03",
+    "style": "英式紳士酒吧",
+    "drinks": [
+      { "name": "Moscow Mule", "note": "優秀" },
+      { "name": "Gin Tonic", "note": "用 Sipsmith V.J.O.P. 做，誠意十足" }
+    ],
+    "story": "博多站筑紫口徒步五分鐘的地下英式酒吧，飯店酒廊般的優雅空間、無 cover charge。Moscow Mule 出色，Gin Tonic 直接用 Sipsmith V.J.O.P. 這種杜松子暴力美學的酒款，誠意十足。",
+    "tags": ["british", "underground", "gin tonic", "fukuoka", "hakata"]
+  },
+  {
+    "id": 5,
+    "name": "BAR THE BRONZE",
+    "nameZh": "バー・ザ・ブロンズ",
+    "country": "日本",
+    "flag": "🇯🇵",
+    "city": "福岡・博多駅東（A.R.K ビル B1F）",
+    "visitDate": "2026-03",
+    "style": "老飯店血統 Authentic Bar",
+    "drinks": [
+      { "name": "Bamboo", "note": "老闆特別挑了酒來做，很好喝" }
+    ],
+    "story": "位在地下室，招牌承接自舊博多都ホテル的「BAR Bronze」，有老飯店酒吧的血統。老闆為了 Bamboo 特別挑酒，笑容可掬也親切無比。",
+    "tags": ["hotel bar heritage", "underground", "sherry", "fukuoka", "hakata"]
+  },
+  {
+    "id": 6,
+    "name": "CITADEL",
+    "nameZh": "シタデル",
+    "country": "日本",
+    "flag": "🇯🇵",
+    "city": "福岡・大名（2F）",
+    "visitDate": "2026-03",
+    "style": "夜之喫茶店 / 咖啡調酒＋自家製利口酒",
+    "drinks": [
+      { "name": "Hinoki White Negroni", "note": "檜木風味的 White Negroni，重擊收尾" }
+    ],
+    "story": "概念是「不端架子的街邊 BAR、陪伴日常的夜之喫茶店」，是福岡最早投入咖啡調酒的酒吧之一，自家製利口酒近百種排滿整面牆。英文流利的調酒師加上滿滿的西方酒客，讓人有回到信義區的感覺，妥妥的 washu 感。點了 Hinoki White Negroni 來個重擊收尾。",
+    "tags": ["coffee cocktail", "house liqueur", "international", "fukuoka", "daimyo"]
   }
 ]

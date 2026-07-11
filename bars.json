@@ -186,5 +186,54 @@
     ],
     "story": "台北茶酒的代表。從金山南路的 Swagger x Old'98 一路喝到現在：Old'98 於 2019 年 4 月熄燈後，韋德暫居國父紀念館附近 COMMONS 餐酒館的地下室，2020 年 3 月 Bar Weekend 在大安站旁的司旅飯店地下室定下來，店中央有一棵櫻花樹。韋德的茶酒用熱萃而非冷泡——茶葉與基酒同鍋加熱、靠溫度與放涼時間控制萃取（酒窖收藏 id 501 白桃烏龍 Gin 的技法出處），茶香比冷泡更濃郁圓潤。有店貓。",
     "tags": ["tea cocktail", "no menu", "hot extraction", "cherry blossom", "cat", "taipei", "regular"]
+  },
+  {
+    "id": 12,
+    "name": "Hidden City 隱城・小城外",
+    "nameZh": "入口像老戲院的酒吧",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台北・大安（信義路）",
+    "visitDate": "",
+    "style": "Speakeasy / 經典與前衛並行",
+    "drinks": [
+      { "name": "地中海炸彈", "note": "Perry 發琴吧時期的招牌，當年的味道" },
+      { "name": "植物學家", "note": "同為發琴吧時期招牌" },
+      { "name": "Margarita", "note": "" },
+      { "name": "Clover Club", "note": "" },
+      { "name": "斑斕 Grasshopper", "note": "" }
+    ],
+    "story": "「小城外」始於大稻埕老宅，2020 年 12 月遷到大安站旁成為「隱城・小城外 Hidden City」，入口偽裝成老電影院，不知道的人會以為是戲院。主理人 Eason 與前發琴吧主理、人稱「西 Perry」的 Perry 在 2024 年聯手推出取兩人名字首字母的「EP 酒單」——Perry 離開發琴吧之後，終於又有了可以喝到他的酒的地方。各式經典與當年的地中海炸彈、植物學家都很棒。",
+    "tags": ["speakeasy", "cinema entrance", "gin", "taipei", "regular"]
+  },
+  {
+    "id": 13,
+    "name": "EAST END",
+    "nameZh": "賦樂旅居 3F",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台北・大安（忠孝復興，大安路一段）",
+    "visitDate": "",
+    "style": "Hotel Bar / 亞洲50大 / 下午開喝",
+    "drinks": [],
+    "story": "位於賦樂旅居（Hotel Proverbs）三樓，店名取自倫敦以酒吧聞名的東區，與台北東區相互呼應。是東京 Bar High Five 傳奇調酒師上野秀嗣在台灣唯一的合作酒吧，2017 年入選亞洲 50 大最佳酒吧。以台灣四季為概念的創意酒單、茶調酒（如改編 Bee's Knees 的 TEA'S KNEES）與桌邊調酒儀式聞名，下午兩點開門，佐酒餐點水準也高。",
+    "tags": ["hotel bar", "asia 50 best", "tea cocktail", "daytime", "taipei"]
+  },
+  {
+    "id": 14,
+    "name": "依舊室 Always",
+    "nameZh": "下午開喝的甜點酒吧",
+    "country": "台灣",
+    "flag": "🇹🇼",
+    "city": "台南・中西區（新美街）",
+    "visitDate": "",
+    "style": "老宅甜點酒吧 / 下午開喝",
+    "drinks": [
+      { "name": "各式經典調酒", "note": "都很棒" },
+      { "name": "焦糖脆奶油磅蛋糕", "note": "甜點・最喜歡" },
+      { "name": "提拉米蘇", "note": "甜點・不錯" }
+    ],
+    "story": "台南中西區新美街的老宅酒吧，主打「下午喝酒、半夜吃甜點」，下午三點開門。木質昏暗的安靜空間，天花板飄著氣球。調酒師皮蛋是相當資深的調酒師，對風味的掌握非常精準，各式經典都很棒。二店「尋琴記」藏在永樂市場二樓。有店狗。",
+    "tags": ["dessert bar", "old house", "daytime", "dog", "tainan", "regular"]
   }
 ]

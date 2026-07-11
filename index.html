@@ -545,7 +545,8 @@ function barMatches(bar) {
 }
 
 function currentList() {
-  return MODE === 'drinks' ? DATA.filter(drinkMatches) : BARS.filter(barMatches);
+  const list = MODE === 'drinks' ? DATA.filter(drinkMatches) : BARS.filter(barMatches);
+  return list.slice().sort((a, b) => a.name.localeCompare(b.name, 'en'));
 }
 
 /* ── rendering ── */

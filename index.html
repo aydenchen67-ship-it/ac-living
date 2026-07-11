@@ -419,8 +419,8 @@ let curCountry = '';
 let curSearch = '';
 
 Promise.all([
-  fetch('data.json').then(r => r.json()),
-  fetch('bars.json').then(r => r.ok ? r.json() : []).catch(() => [])
+  fetch('data.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.json()),
+  fetch('bars.json?v=' + Date.now(), { cache: 'no-store' }).then(r => r.ok ? r.json() : []).catch(() => [])
 ]).then(([drinks, bars]) => {
   DATA = drinks;
   BARS = bars;
